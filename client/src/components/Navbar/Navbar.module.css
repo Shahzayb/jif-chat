@@ -1,0 +1,88 @@
+.nav {
+  height: 6.5rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  background-color: var(--color-bg-1);
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
+}
+
+.ul {
+  width: 90%;
+  margin: 0 auto;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+
+.ul li {
+  display: inline-block;
+}
+
+.ul li:not(:last-child) {
+  margin-right: 2rem;
+}
+
+.mlAuto {
+  margin-left: auto;
+}
+
+.navLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.5s;
+}
+
+.navLink > *:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.navLink:hover,
+.activeNavLink {
+  color: var(--color-text-3);
+}
+
+.addIcon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.primaryBtn {
+  font-family: inherit;
+  font-size: 1.6rem;
+  display: block;
+  padding: 0.4rem 1.2rem;
+  cursor: pointer;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #fff;
+  background-color: var(--color-primary-1);
+  user-select: none;
+  border: none;
+  transition: background-color 0.5s;
+}
+
+.primaryBtn:hover {
+  background-color: var(--color-primary-2);
+}
+
+.bigScreen {
+  display: none;
+}
+
+@media screen and (min-width: 500px) {
+  .bigScreen {
+    display: unset;
+  }
+
+  .smallScreen {
+    display: none;
+  }
+
+  .ul li:not(:last-child) {
+    margin-right: 3.5rem;
+  }
+}
