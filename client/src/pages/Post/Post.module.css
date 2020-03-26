@@ -1,0 +1,16 @@
+.postContainer {
+  max-width: 450px;
+
+  padding: 1rem;
+}
+
+.sendIcon {
+  margin-left: 1rem;
+}
+
+.heading {
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 30px;
+  margin: 0 0 30px;
+}

@@ -20,7 +20,7 @@ export default function Navbar() {
             <span className={css.bigScreen}>Jif Chat</span>
           </NavLink>
         </li>
-        <li className={css.mlAuto}>
+        <li className="mlAuto">
           <NavLink
             to="/post"
             activeClassName={css.activeNavLink}
@@ -34,12 +34,12 @@ export default function Navbar() {
           </NavLink>
         </li>
         <li>
-          <Link to="/login" className={css.primaryBtn}>
+          <Link to="/login" className="primaryBtn">
             Login
           </Link>
         </li>
         <li>
-          <button className={css.primaryBtn}>Logout</button>
+          <button className="primaryBtn">Logout</button>
         </li>
       </ul>
     </nav>

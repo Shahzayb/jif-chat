@@ -1,0 +1,29 @@
+.editable {
+  margin-top: 3rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.034);
+  display: block;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 300;
+  word-wrap: break-word;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-bg-1);
+  /* border: 1px solid var(--color-bg-3); */
+  border-radius: 3px;
+  resize: none;
+  outline: none;
+  overflow: auto;
+}
+
+.editable:focus {
+  background-color: var(--color-bg-2);
+}
+
+.count {
+  font: 13px/1.5 monospace;
+  color: var(--color-text-2);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-top: 10px;
+}

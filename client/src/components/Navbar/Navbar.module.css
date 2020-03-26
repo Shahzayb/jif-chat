@@ -23,10 +23,6 @@
   margin-right: 2rem;
 }
 
-.mlAuto {
-  margin-left: auto;
-}
-
 .navLink {
   text-decoration: none;
   color: inherit;
@@ -48,25 +44,6 @@
 .addIcon {
   width: 3rem;
   height: 3rem;
-}
-
-.primaryBtn {
-  font-family: inherit;
-  font-size: 1.6rem;
-  display: block;
-  padding: 0.4rem 1.2rem;
-  cursor: pointer;
-  border-radius: 3px;
-  text-decoration: none;
-  color: #fff;
-  background-color: var(--color-primary-1);
-  user-select: none;
-  border: none;
-  transition: background-color 0.5s;
-}
-
-.primaryBtn:hover {
-  background-color: var(--color-primary-2);
 }
 
 .bigScreen {
