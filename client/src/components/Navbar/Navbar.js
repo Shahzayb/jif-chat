@@ -4,8 +4,10 @@ import { NavLink, Link } from 'react-router-dom';
 import logo from '../../assets/logo-xs.png';
 import { ReactComponent as AddIcon } from '../../assets/plus.svg';
 import css from './Navbar.module.css';
+import useAuthState from '../../hooks/useAuthState';
 
 export default function Navbar() {
+  const { logout, isAuthenticated } = useAuthState();
   return (
     <nav className={css.nav}>
       <ul className={css.ul}>
@@ -33,14 +35,20 @@ export default function Navbar() {
             />
           </NavLink>
         </li>
-        <li>
-          <Link to="/login" className="primaryBtn">
-            Login
-          </Link>
-        </li>
-        <li>
-          <button className="primaryBtn">Logout</button>
-        </li>
+        {!isAuthenticated && (
+          <li>
+            <Link to="/login" className="primaryBtn">
+              Login
+            </Link>
+          </li>
+        )}
+        {isAuthenticated && (
+          <li>
+            <button onClick={logout} className="primaryBtn">
+              Logout
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

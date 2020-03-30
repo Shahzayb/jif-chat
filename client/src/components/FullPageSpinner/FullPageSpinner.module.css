@@ -1,0 +1,15 @@
+.spinner {
+  color: var(--color-primary-1);
+}
+
+.spinner > svg {
+  width: 4rem;
+  height: 4rem;
+}
+
+@media screen and (min-width: 500px) {
+  .spinner > svg {
+    width: 6rem;
+    height: 6rem;
+  }
+}

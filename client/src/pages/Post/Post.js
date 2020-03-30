@@ -3,19 +3,14 @@ import GifRecorder from '../../components/GifRecorder/GifRecorder';
 import TextEditor from '../../components/TextEditor/TextEditor';
 import { ReactComponent as SendIcon } from '../../assets/send.svg';
 import css from './Post.module.css';
+import uploadGif from '../../api/uploadGif';
 
 const Post = props => {
   const [gif, setGif] = React.useState(null);
   const [text, setText] = React.useState('');
 
   const uploadHandler = React.useCallback(() => {
-    const data = new FormData();
-    data.append('gif', gif);
-    data.append('title', text);
-    fetch('http://localhost:5000/api/post', {
-      method: 'POST',
-      body: data
-    })
+    uploadGif(gif, text)
       .then(console.log)
       .catch(console.log);
   }, [gif, text]);
