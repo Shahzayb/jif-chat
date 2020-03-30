@@ -1,0 +1,32 @@
+{
+  "name": "jif-chat",
+  "version": "1.0.0",
+  "description": "It's a gif based chat application",
+  "private": true,
+  "scripts": {
+    "start": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "server": "npm run server --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "heroku-prebuild": "cd server && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shahzayb/jif-chat.git"
+  },
+  "keywords": [],
+  "author": "shahzaib sarwar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shahzayb/jif-chat/issues"
+  },
+  "homepage": "https://github.com/Shahzayb/jif-chat#readme",
+  "engines": {
+    "node": "13.x",
+    "npm": "6.x"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
+}
