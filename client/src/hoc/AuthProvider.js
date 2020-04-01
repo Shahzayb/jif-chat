@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import AuthContext from '../context/AuthContext';
@@ -15,9 +14,6 @@ const initState = {
 
 export default function AuthProvider({ children }) {
   const [state, setState] = React.useState(initState);
-  const history = useHistory();
-
-  console.log('his', history);
 
   // get user profile on startup
   React.useEffect(() => {

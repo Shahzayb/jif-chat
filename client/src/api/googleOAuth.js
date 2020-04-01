@@ -1,7 +1,5 @@
-import { serverBaseUrl } from '../config/env';
-
 export default async code => {
-  const url = serverBaseUrl + '/api/auth/google';
+  const url = '/api/auth/google';
 
   const response = await fetch(url, {
     method: 'POST',

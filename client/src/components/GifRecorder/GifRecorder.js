@@ -31,7 +31,7 @@ const GifVideoPlayer = props => {
 };
 
 const GifRecorder = props => {
-  const { onRecordSuccess } = props;
+  const { onRecordSuccess, disabled = false } = props;
 
   const [isOff, setOff] = React.useState(false);
   const [isSupported, setSupported] = React.useState(true);
@@ -47,16 +47,8 @@ const GifRecorder = props => {
         facingMode: {
           exact: isFront ? 'user' : 'environment'
         },
-        width: {
-          min: 1280,
-          ideal: 1920,
-          max: 2560
-        },
-        height: {
-          min: 720,
-          ideal: 1080,
-          max: 1440
-        }
+        width: { min: 640, ideal: 1920, max: 1920 },
+        height: { min: 400, ideal: 1080 }
       }
     }),
     [isFront]
@@ -143,28 +135,34 @@ const GifRecorder = props => {
               fill="currentColor"
               className="pt1"
             />
-            <span className="pt1">camera is not supported</span>
+            <span className="pt1">
+              {isFront ? 'front' : 'back'} camera is not supported
+            </span>
           </div>
         )}
       </div>
       <hr />
       <div className={css.recordBox}>
         <button
-          disabled={!gifVideo || recording || !isSupported || isOff}
+          disabled={!gifVideo || recording || !isSupported || isOff || disabled}
           onClick={clearGifVideo}
           className="buttonReset"
         >
           <ClearIcon fill="currentColor" title="clear" />
         </button>
         <button
-          disabled={recording || gifVideo || !isSupported || isOff}
+          disabled={recording || gifVideo || !isSupported || isOff || disabled}
           onClick={recordHandler}
           className={`${css.recordBtn} ${
             recording ? css.recording : css.notRecording
           }`}
         ></button>
 
-        <button onClick={toggleCamera} className="buttonReset">
+        <button
+          onClick={toggleCamera}
+          className="buttonReset"
+          disabled={disabled}
+        >
           <FlipCameraIcon fill="currentColor" title="flip camera" />
         </button>
       </div>

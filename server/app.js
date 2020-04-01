@@ -7,7 +7,6 @@ const path = require('path');
 const app = express();
 
 const env = app.get('env');
-console.log(env);
 
 /**
  * Custom .env cofiguration
@@ -24,20 +23,18 @@ if (env !== 'production') {
 const postRoute = require('./route/post');
 const authRoute = require('./route/auth');
 const userRoute = require('./route/user');
+const cloudinaryRoute = require('./route/cloudinary');
 
 // enable ssl redirect in production
 app.use(sslRedirect());
 app.use(logger('combined'));
 app.use(express.json());
 app.use(compression());
-if (env !== 'production') {
-  const cors = require('cors');
-  app.use(cors());
-}
 
 app.use('/api/post/', postRoute);
 app.use('/api/auth/', authRoute);
 app.use('/api/user/', userRoute);
+app.use('/api/cloudinary/', cloudinaryRoute);
 
 if (env === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build/')));
@@ -51,4 +48,4 @@ require('./db'); // connecting to database
 
 const PORT = process.env.PORT || '5000';
 
-app.listen(PORT, () => console.log(`server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`${env} server started on port ${PORT}`));

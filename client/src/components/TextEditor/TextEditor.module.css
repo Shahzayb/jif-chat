@@ -20,6 +20,11 @@
   background-color: var(--color-bg-2);
 }
 
+.editable:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-bg-2);
+}
+
 .count {
   font: 13px/1.5 monospace;
   color: var(--color-text-2);

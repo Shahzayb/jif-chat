@@ -1,7 +1,5 @@
-import { serverBaseUrl } from '../config/env';
-
 export default async jwtToken => {
-  const url = serverBaseUrl + '/api/user';
+  const url = '/api/user';
   const response = await fetch(url, {
     headers: {
       'Content-Type': 'application/json',

@@ -23,6 +23,11 @@
   background-color: var(--color-primary-2);
 }
 
+.primaryBtn:disabled {
+  cursor: not-allowed;
+  background-color: var(--color-text-1);
+}
+
 .video {
   position: absolute;
   top: 0;
@@ -54,6 +59,10 @@
 
 .mlAuto {
   margin-left: auto;
+}
+
+.ml1 {
+  margin-left: 1rem;
 }
 
 .flexCenter {

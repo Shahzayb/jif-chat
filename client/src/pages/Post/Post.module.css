@@ -1,11 +1,6 @@
 .postContainer {
   max-width: 450px;
-
   padding: 1rem;
-}
-
-.sendIcon {
-  margin-left: 1rem;
 }
 
 .heading {
@@ -13,4 +8,9 @@
   font-weight: 300;
   line-height: 30px;
   margin: 0 0 30px;
+}
+
+.spinner > svg {
+  width: 2rem;
+  height: 2rem;
 }

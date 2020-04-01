@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import css from './TextEditor.module.css';
 
 const TextEditor = props => {
-  const { textLimit, value, onChange } = props;
-  const [text, setText] = React.useState(value || '');
+  const { textLimit, value, onChange, disabled = false } = props;
 
   const textInputHandler = React.useCallback(
     e => {
       const text = e.target.value;
       if (text.length <= textLimit) {
-        setText(text);
         if (onChange) {
           onChange(text);
         }
@@ -31,12 +29,13 @@ const TextEditor = props => {
         placeholder="what's on your mind?"
         onChange={textInputHandler}
         className={css.editable}
-        value={value || text}
+        value={value}
         onKeyDown={keyDownHandler}
+        disabled={disabled}
       ></textarea>
 
       <div className={css.count}>
-        <span>{text.length}</span> / <span>{textLimit}</span>
+        <span>{value.length}</span> / <span>{textLimit}</span>
       </div>
     </div>
   );

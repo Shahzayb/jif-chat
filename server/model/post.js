@@ -4,11 +4,11 @@ const postSchema = new mongoose.Schema(
   {
     gifSrc: {
       type: String,
-      required
+      required: true
     },
     gifPublicId: {
       type: String,
-      required
+      required: true
     },
     title: {
       type: String,
@@ -23,4 +23,4 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.Model('Post', postSchema);
+module.exports = mongoose.model('Post', postSchema);
