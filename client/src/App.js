@@ -5,6 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 
 import PostPage from './pages/Post/Post';
 import LoginPage from './pages/Login/Login';
+import HomePage from './pages/Home/Home';
 
 import AuthenticatedAccessibleRoute from './hoc/AuthenticatedAccessibleRoute';
 import UnauthenticatedAccessibleRoute from './hoc/UnauthenticatedAccessibleRoute';
@@ -15,7 +16,7 @@ function App() {
       <Navbar />
       <div className="layout">
         <Switch>
-          <Route exact path="/" component={() => <div>home</div>} />
+          <Route exact path="/" component={HomePage} />
           <AuthenticatedAccessibleRoute
             exact
             path="/post"

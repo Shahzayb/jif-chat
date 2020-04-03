@@ -7,25 +7,16 @@ module.exports = (req, res, next) => {
     const apiSecret = process.env.CLOUDINARY_API_SECRET;
     const reqSig = req.headers['x-cld-signature'];
 
-    const signedPayload = reqData + reqTimestamp + apiSecret;
+    const computedSig = sha1(reqData + reqTimestamp + apiSecret);
 
-    const computedSig = sha1(signedPayload);
-
-    // console.log(
-    //   reqData,
-    //   reqTimestamp,
-    //   apiSecret,
-    //   reqSig,
-    //   signedPayload,
-    //   computedSig
-    // );
+    console.log(reqData, reqTimestamp, apiSecret, reqSig, computedSig);
 
     if (computedSig === reqSig) {
-      // console.log('valid');
+      console.log('valid cloudinary request');
       next();
     } else {
-      // console.log('invalid');
-      res.end();
+      console.log('invalid cloudinary request');
+      res.end({ msg: 'invalid cloudinary request' });
     }
   } catch (error) {
     console.log(error);

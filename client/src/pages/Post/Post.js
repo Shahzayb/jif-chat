@@ -32,7 +32,7 @@ const Post = props => {
   }, [gif, title]);
 
   return (
-    <div className={`${css.postContainer} mt3 mhAuto`}>
+    <div className={`${css.container} mt3 mhAuto`}>
       <h1 className={css.heading}>Make a Post</h1>
       <GifRecorder onRecordSuccess={setGif} disabled={uploading} />
       <TextEditor disabled={uploading} onChange={setTitle} value={title} />
@@ -43,7 +43,7 @@ const Post = props => {
           style={{ marginTop: '-2rem' }}
           disabled={uploading || !title || !gif}
         >
-          <spna>Send</spna>
+          <span>Send</span>
 
           {uploading ? (
             <Loader

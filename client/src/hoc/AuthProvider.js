@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
           setState(state => ({ ...state, user, token }));
         })
         .catch(e => {
-          console.log(e);
+          console.log('startup auth error', e);
           localStorage.removeItem('token');
         })
         .finally(() => {

@@ -41,6 +41,10 @@
 
 /* utilities */
 
+.bgGrey {
+  background-color: red;
+}
+
 .pt1 {
   padding-top: 1rem;
 }
@@ -71,8 +75,30 @@
   align-items: center;
 }
 
+.flexBtw {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .mt3 {
   margin-top: 3rem;
+}
+
+.mb3 {
+  margin-bottom: 3rem;
+}
+
+.mb1 {
+  margin-bottom: 1rem;
+}
+
+.ml1 {
+  margin-left: 1rem;
+}
+
+.p1 {
+  padding: 1rem;
 }
 
 .mhAuto {
@@ -85,6 +111,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.rounded {
+  border-radius: 50%;
+}
+
+.w4 {
+  width: 4rem;
 }
 
 /* responsive styles */

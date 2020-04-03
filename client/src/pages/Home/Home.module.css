@@ -1,0 +1,8 @@
+.spinner {
+  color: var(--color-primary-1);
+}
+
+.spinner > svg {
+  width: 3rem;
+  height: 3rem;
+}

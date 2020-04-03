@@ -1,9 +1,10 @@
-export default jwtToken => {
-  const url = '/api/user';
+import { pageSize } from '../config/env';
+
+export default page => {
+  const url = `/api/post?page=${page}&size=${pageSize}`;
   return fetch(url, {
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${jwtToken}`
+      'Content-Type': 'application/json'
     }
   }).then(response => {
     if (response.ok) {
