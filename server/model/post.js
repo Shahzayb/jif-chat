@@ -5,10 +5,12 @@ const postSchema = new mongoose.Schema(
     gifSrc: {
       type: String,
       required: true,
+      unique: true,
     },
     gifPublicId: {
       type: String,
       required: true,
+      unique: true,
     },
     title: {
       type: String,

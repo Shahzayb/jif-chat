@@ -13,7 +13,7 @@ const env = app.get('env');
  */
 if (env !== 'production') {
   const result = require('dotenv').config({
-    path: path.join(__dirname, './config/dev.env')
+    path: path.join(__dirname, './config/dev.env'),
   });
   if (result.error) {
     throw result.error;
@@ -28,7 +28,13 @@ const cloudinaryRoute = require('./route/cloudinary');
 // enable ssl redirect in production
 app.use(sslRedirect());
 app.use(logger('combined'));
-app.use(express.json());
+app.use(
+  express.json({
+    verify: (req, res, buf, encoding) => {
+      req.rawBody = buf.toString(encoding);
+    },
+  })
+);
 app.use(compression());
 
 app.use('/api/post/', postRoute);

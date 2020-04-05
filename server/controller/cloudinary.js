@@ -27,14 +27,14 @@ exports.postWebhook = async (req, res) => {
       const user = await User.exists({ _id: userId });
 
       if (!user) {
-        return res.end();
+        return res.status(422).json({ msg: 'user does not exist' });
       }
 
       const post = new Post({
         gifSrc: body.secure_url,
         gifPublicId: body.public_id,
         userId,
-        title: body.context.custom.title
+        title: body.context.custom.title,
       });
 
       await post.save();

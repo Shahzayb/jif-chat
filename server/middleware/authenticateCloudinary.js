@@ -1,25 +1,21 @@
 const sha1 = require('sha1');
 
 module.exports = (req, res, next) => {
-  try {
-    const reqData = JSON.stringify(req.body);
-    const reqTimestamp = String(req.headers['x-cld-timestamp']);
-    const apiSecret = String(process.env.CLOUDINARY_API_SECRET);
-    const reqSig = String(req.headers['x-cld-signature']);
+  const reqData = req.rawBody;
+  const reqTimestamp = req.headers['x-cld-timestamp'];
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+  const reqSig = req.headers['x-cld-signature'];
+  const sigPayload = reqData + reqTimestamp + apiSecret;
 
-    const computedSig = String(sha1(reqData + reqTimestamp + apiSecret));
+  const computedSig = sha1(sigPayload);
 
-    console.log(reqData, reqTimestamp, apiSecret, reqSig, computedSig);
+  console.log(sigPayload, reqSig, computedSig);
 
-    if (computedSig === reqSig) {
-      console.log('valid cloudinary request');
-      return next();
-    } else {
-      console.log('invalid cloudinary request');
-      return res.end();
-    }
-  } catch (e) {
-    console.log(e);
-    res.status(422).send();
+  if (computedSig === reqSig) {
+    console.log('valid cloudinary request');
+    next();
+  } else {
+    console.log('invalid cloudinary request');
+    res.status(422).json({ msg: 'invalid request' });
   }
 };
