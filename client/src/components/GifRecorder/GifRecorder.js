@@ -6,7 +6,7 @@ import { ReactComponent as ClearIcon } from '../../assets/clear.svg';
 import LiveCamera from '../LiveCamera/LiveCamera';
 import css from './GifRecorder.module.css';
 
-const GifVideoPlayer = props => {
+const GifVideoPlayer = (props) => {
   const { gif } = props;
   const videoRef = React.useRef(null);
   React.useEffect(() => {
@@ -30,38 +30,39 @@ const GifVideoPlayer = props => {
   );
 };
 
-const GifRecorder = props => {
-  const { onRecordSuccess, disabled = false } = props;
+const GifRecorder = (props) => {
+  const { gifVideo, setGifVideo, disabled = false, required } = props;
 
   const [isOff, setOff] = React.useState(false);
   const [isSupported, setSupported] = React.useState(true);
   const [isFront, setFront] = React.useState(true);
-  const [gifVideo, setGifVideo] = React.useState(null);
   const [recording, setRecording] = React.useState(false);
   const [recorder, setRecorder] = React.useState(null);
+
+  const isError = !disabled && required && !gifVideo;
 
   const constraint = React.useMemo(
     () => ({
       audio: false,
       video: {
         facingMode: {
-          exact: isFront ? 'user' : 'environment'
+          exact: isFront ? 'user' : 'environment',
         },
         width: { min: 640, ideal: 1920, max: 1920 },
-        height: { min: 400, ideal: 1080 }
-      }
+        height: { min: 400, ideal: 1080 },
+      },
     }),
     [isFront]
   );
 
-  const streamMediaHandler = React.useCallback(stream => {
+  const streamMediaHandler = React.useCallback((stream) => {
     const mediaRecorder = new MediaRecorder(stream);
     setRecorder(mediaRecorder);
     setOff(false);
     setSupported(true);
   }, []);
 
-  const streamMediaErrorHandler = React.useCallback(e => {
+  const streamMediaErrorHandler = React.useCallback((e) => {
     if (e.name === 'NotAllowedError') {
       console.log('camera off');
       setOff(true);
@@ -73,7 +74,7 @@ const GifRecorder = props => {
   }, []);
 
   const recordHandler = React.useCallback(
-    e => {
+    (e) => {
       setRecording(true);
       const chunks = [];
       recorder.start();
@@ -81,20 +82,19 @@ const GifRecorder = props => {
         recorder.stop();
       }, 1800);
 
-      recorder.ondataavailable = function(ev) {
+      recorder.ondataavailable = function (ev) {
         chunks.push(ev.data);
       };
-      recorder.onstop = ev => {
+      recorder.onstop = (ev) => {
         let blob = new Blob(chunks, { type: 'video/mp4;' });
         console.log(blob);
         setGifVideo(blob);
 
         setRecording(false);
-        onRecordSuccess(blob);
         setRecorder(null);
       };
     },
-    [recorder, onRecordSuccess]
+    [recorder, setGifVideo]
   );
 
   const toggleCamera = React.useCallback(() => {
@@ -103,7 +103,7 @@ const GifRecorder = props => {
 
   const clearGifVideo = React.useCallback(() => {
     setGifVideo(null);
-  }, []);
+  }, [setGifVideo]);
 
   return (
     <div className={css.camContainer}>
@@ -151,7 +151,14 @@ const GifRecorder = props => {
           <ClearIcon fill="currentColor" title="clear" />
         </button>
         <button
-          disabled={recording || gifVideo || !isSupported || isOff || disabled}
+          disabled={
+            !recorder ||
+            recording ||
+            gifVideo ||
+            !isSupported ||
+            isOff ||
+            disabled
+          }
           onClick={recordHandler}
           className={`${css.recordBtn} ${
             recording ? css.recording : css.notRecording
@@ -166,12 +173,20 @@ const GifRecorder = props => {
           <FlipCameraIcon fill="currentColor" title="flip camera" />
         </button>
       </div>
+      {isError && (
+        <div className={`${css.errorMsg} flexCenter`}>
+          <span>*</span> <span> required</span>
+        </div>
+      )}
     </div>
   );
 };
 
 GifRecorder.propTypes = {
-  onRecordSuccess: PropTypes.func.isRequired
+  setGifVideo: PropTypes.func.isRequired,
+  gifVideo: PropTypes.object,
+  required: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default GifRecorder;

@@ -4,10 +4,8 @@ import useAuthState from '../../hooks/useAuthState';
 import css from './PostContainer.module.css';
 
 export default function PostContainer({ post }) {
-  const {
-    user: { _id: id },
-  } = useAuthState();
-  const isMine = id === post.user._id;
+  const { user } = useAuthState();
+  const isMine = user && user._id === post.user._id;
   return (
     <div className={`${css.container} mhAuto`}>
       <header className="flexBtw mb1">

@@ -25,6 +25,16 @@
   background-color: var(--color-bg-2);
 }
 
+.errorBorder {
+  border: 1px solid var(--color-red-1);
+}
+
+.errorMsg {
+  font-size: 1.2rem;
+  color: var(--color-red-1);
+  margin-top: 1rem;
+}
+
 .count {
   font: 13px/1.5 monospace;
   color: var(--color-text-2);

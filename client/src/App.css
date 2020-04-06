@@ -41,10 +41,6 @@
 
 /* utilities */
 
-.bgGrey {
-  background-color: red;
-}
-
 .pt1 {
   padding-top: 1rem;
 }
@@ -72,6 +68,11 @@
 .flexCenter {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.flexVerticalCenter {
+  display: flex;
   align-items: center;
 }
 

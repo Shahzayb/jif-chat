@@ -9,9 +9,10 @@ import css from './Post.module.css';
 import uploadGif from '../../api/uploadGif';
 import getSignature from '../../api/getSignature';
 
-const Post = props => {
+function Post(props) {
   const [gif, setGif] = React.useState(null);
   const [title, setTitle] = React.useState('');
+  const [titleTouched, setTitleTouched] = React.useState(false);
   const [uploading, setUploading] = React.useState(false);
 
   const uploadHandler = React.useCallback(async () => {
@@ -28,20 +29,35 @@ const Post = props => {
       toast.error('upload failed');
     } finally {
       setUploading(false);
+      setTitleTouched(false);
     }
   }, [gif, title]);
 
   return (
     <div className={`${css.container} mt3 mhAuto`}>
       <h1 className={css.heading}>Make a Post</h1>
-      <GifRecorder onRecordSuccess={setGif} disabled={uploading} />
-      <TextEditor disabled={uploading} onChange={setTitle} value={title} />
+      <GifRecorder
+        required
+        gifVideo={gif}
+        setGifVideo={setGif}
+        disabled={uploading}
+      />
+      <TextEditor
+        error={!uploading && titleTouched && (!title || !title.trim())}
+        required={true}
+        disabled={uploading}
+        onChange={setTitle}
+        value={title}
+        onBlur={() => {
+          setTitleTouched(true);
+        }}
+      />
       <div>
         <button
           className="primaryBtn flexCenter mlAuto"
           onClick={uploadHandler}
           style={{ marginTop: '-2rem' }}
-          disabled={uploading || !title || !gif}
+          disabled={uploading || !title || !title.trim() || !gif}
         >
           <span>Send</span>
 
@@ -58,6 +74,6 @@ const Post = props => {
       </div>
     </div>
   );
-};
+}
 
 export default Post;
