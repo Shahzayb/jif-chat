@@ -5,6 +5,7 @@ import Loader from 'react-loader-spinner';
 import useAuthState from '../../hooks/useAuthState';
 import css from './JifContainer.module.css';
 import deletePost from '../../api/deletePost';
+import GifPlayer from '../GifPlayer/GifPlayer';
 
 export default function JifContainer({ post, onDeleteSuccess }) {
   const { user } = useAuthState();
@@ -53,14 +54,7 @@ export default function JifContainer({ post, onDeleteSuccess }) {
       </header>
       <hr className="mb1" />
       <div className={css.videoContainer}>
-        <video
-          className="video"
-          src={post.gifSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-        ></video>
+        <GifPlayer publicId={post.gifPublicId} />
       </div>
       <div className="p1">{post.title}</div>
     </div>
