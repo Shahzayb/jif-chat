@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
 
   const computedSig = sha1(sigPayload);
 
-  console.log(sigPayload, reqSig, computedSig);
+  // console.log(sigPayload, reqSig, computedSig);
 
   if (computedSig === reqSig) {
     console.log('valid cloudinary request');

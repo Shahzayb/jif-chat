@@ -12,7 +12,6 @@ exports.getSignature = (req, res) => {
       .send({ msg: 'title should have characters between 1 and 120' });
   }
   const context = `title=${title}`;
-  console.log(req.query);
   const signature = getSignature(req.user._id.toString(), context);
   res.json(signature);
 };

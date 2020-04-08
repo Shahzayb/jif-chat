@@ -7,16 +7,16 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("couldn't connect to the database", err);
     process.exit(1);
   });
 
 const db = mongoose.connection;
 
-db.on('error', err => {
+db.on('error', (err) => {
   console.log(err);
 });
 

@@ -14,3 +14,8 @@
   width: 100%;
   height: 250px;
 }
+
+.spinner > svg {
+  width: 2rem;
+  height: 2rem;
+}
