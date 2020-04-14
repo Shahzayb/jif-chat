@@ -42,13 +42,13 @@ app.use('/api/auth/', authRoute);
 app.use('/api/user/', userRoute);
 app.use('/api/cloudinary/', cloudinaryRoute);
 
-// if (env === 'production') {
-app.use(express.static(path.join(__dirname, '../client/build/')));
+if (env === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build/')));
 
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '../client/build/index.html'))
-);
-// }
+  app.get('*', (req, res) =>
+    res.sendFile(path.join(__dirname, '../client/build/index.html'))
+  );
+}
 
 require('./db'); // connecting to database
 
