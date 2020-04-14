@@ -4,7 +4,7 @@ import { Video, Transformation } from 'cloudinary-react';
 const GifPlayer = (props) => {
   return (
     <Video
-      cloudName={process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}
+      cloudName="shahzayb"
       publicId={props.publicId}
       autoPlay
       loop
