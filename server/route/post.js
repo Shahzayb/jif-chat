@@ -8,4 +8,6 @@ router.get('/', controller.getPosts);
 
 router.delete('/:id', auth, controller.deletePost);
 
+router.get('/events', controller.getEvents);
+
 module.exports = router;

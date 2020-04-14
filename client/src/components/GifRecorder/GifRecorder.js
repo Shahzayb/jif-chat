@@ -45,9 +45,12 @@ const GifRecorder = (props) => {
     () => ({
       audio: false,
       video: {
-        facingMode: {
-          exact: isFront ? 'user' : 'environment',
-        },
+        // this causes error in firefox
+        // facingMode: {
+        //   exact: isFront ? 'user' : 'environment',
+        // },
+        facingMode: isFront ? 'user' : 'environment',
+
         width: { min: 640, ideal: 1920, max: 1920 },
         height: { min: 400, ideal: 1080 },
       },
@@ -63,14 +66,12 @@ const GifRecorder = (props) => {
   }, []);
 
   const streamMediaErrorHandler = React.useCallback((e) => {
+    console.log(e);
     if (e.name === 'NotAllowedError') {
-      console.log('camera off');
       setOff(true);
     } else {
-      console.log('browser does not support camera');
       setSupported(false);
     }
-    console.log(e);
   }, []);
 
   const recordHandler = React.useCallback(
@@ -87,7 +88,7 @@ const GifRecorder = (props) => {
       };
       recorder.onstop = (ev) => {
         let blob = new Blob(chunks, { type: 'video/mp4;' });
-        console.log(blob);
+
         setGifVideo(blob);
 
         setRecording(false);
@@ -141,14 +142,16 @@ const GifRecorder = (props) => {
           </div>
         )}
       </div>
-      <hr />
+      <hr className="mb5px" />
+
       <div className={css.recordBox}>
         <button
           disabled={!gifVideo || recording || !isSupported || isOff || disabled}
           onClick={clearGifVideo}
-          className="buttonReset"
+          className="buttonReset flexColCenter"
         >
           <ClearIcon fill="currentColor" title="clear" />
+          <span className="fontSize11px mt5px">Discard</span>
         </button>
         <button
           disabled={
@@ -167,15 +170,16 @@ const GifRecorder = (props) => {
 
         <button
           onClick={toggleCamera}
-          className="buttonReset"
+          className="buttonReset flexColCenter"
           disabled={disabled}
         >
           <FlipCameraIcon fill="currentColor" title="flip camera" />
+          <span className="fontSize11px mt5px">Switch cam</span>
         </button>
       </div>
       {isError && (
         <div className={`${css.errorMsg} flexCenter`}>
-          <span>*</span> <span> required</span>
+          <span>*</span> <span>gif required</span>
         </div>
       )}
     </div>

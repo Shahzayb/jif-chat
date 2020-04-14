@@ -16,6 +16,20 @@ exports.getSignature = (req, res) => {
   res.json(signature);
 };
 
+exports.getPublicSignature = (req, res) => {
+  const { title } = req.query;
+  if (!title) {
+    return res.status(422).send({ msg: 'title is required' });
+  } else if (title.trim().length > 120) {
+    return res
+      .status(422)
+      .send({ msg: 'title should have characters between 1 and 120' });
+  }
+  const context = `title=${title}`;
+  const signature = getSignature(process.env.ANONYMOUS_USER_ID, context);
+  res.json(signature);
+};
+
 exports.postWebhook = async (req, res) => {
   try {
     const { body } = req;

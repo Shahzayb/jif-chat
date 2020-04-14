@@ -1,0 +1,13 @@
+.center {
+  width: 100%;
+  height: calc(100vh - 132px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -7,7 +7,6 @@ import PostPage from './pages/Post/Post';
 import LoginPage from './pages/Login/Login';
 import HomePage from './pages/Home/Home';
 
-import AuthenticatedAccessibleRoute from './hoc/AuthenticatedAccessibleRoute';
 import UnauthenticatedAccessibleRoute from './hoc/UnauthenticatedAccessibleRoute';
 
 function App() {
@@ -17,11 +16,7 @@ function App() {
       <div className="layout">
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <AuthenticatedAccessibleRoute
-            exact
-            path="/post"
-            component={PostPage}
-          />
+          <Route exact path="/post" component={PostPage} />
           <UnauthenticatedAccessibleRoute
             exact
             path="/login"

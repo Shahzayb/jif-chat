@@ -15,8 +15,7 @@ const GifPlayer = (props) => {
       <Transformation
         responsive
         crop="limit"
-        width="430"
-        height="250"
+        width="600"
         dpr="auto"
         quality="auto"
         fetchFormat="auto"

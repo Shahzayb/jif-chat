@@ -8,8 +8,11 @@ import { ReactComponent as SendIcon } from '../../assets/send.svg';
 import css from './Post.module.css';
 import uploadGif from '../../api/uploadGif';
 import getSignature from '../../api/getSignature';
+import getPublicSignature from '../../api/getPublicSignature';
+import useAuthState from '../../hooks/useAuthState';
 
 function Post(props) {
+  const { isAuthenticated } = useAuthState();
   const [gif, setGif] = React.useState(null);
   const [title, setTitle] = React.useState('');
   const [titleTouched, setTitleTouched] = React.useState(false);
@@ -18,24 +21,29 @@ function Post(props) {
   const uploadHandler = React.useCallback(async () => {
     try {
       setUploading(true);
-      const sig = await getSignature(title);
-      const res = await uploadGif(gif, sig);
-      console.log(res);
+      let sig;
+      if (isAuthenticated) {
+        sig = await getSignature(title);
+      } else {
+        sig = await getPublicSignature(title);
+      }
+
+      await uploadGif(gif, sig);
+
       setTitle('');
       setGif(null);
       toast.success('Gif is uploaded successfully!');
     } catch (e) {
-      console.log(e);
       toast.error('upload failed');
     } finally {
       setUploading(false);
       setTitleTouched(false);
     }
-  }, [gif, title]);
+  }, [gif, title, isAuthenticated]);
 
   return (
     <div className={`${css.container} mt3 mhAuto`}>
-      <h1 className={css.heading}>Make a Post</h1>
+      <h1 className={css.heading}>Make a Jif</h1>
       <GifRecorder
         required
         gifVideo={gif}
