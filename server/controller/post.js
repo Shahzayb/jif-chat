@@ -126,6 +126,5 @@ exports.getEvents = (req, res) => {
 
   req.on('close', () => {
     changeStream.close();
-    console.log(`Connection closed: ${id}`);
   });
 };
