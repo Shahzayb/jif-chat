@@ -21,8 +21,6 @@ exports.postWebhook = async (req, res) => {
     if (body.notification_type === 'upload') {
       const ticket = await Ticket.findOne({ publicId: body.public_id }).lean();
 
-      console.log('ticket', ticket);
-
       if (!ticket) {
         await cloudinary.uploader.destroy(body.public_id);
         return res.status(422).send({ msg: 'This asset is not expected here' });
