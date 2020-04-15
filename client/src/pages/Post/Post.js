@@ -29,7 +29,8 @@ function Post(props) {
         sig = await getPublicSignature();
       }
 
-      await postTicket(sig.public_id, title);
+      const publicId = `${sig.folder}/${sig.public_id}`;
+      await postTicket(publicId, title);
       await uploadGif(gif, sig);
 
       setTitle('');

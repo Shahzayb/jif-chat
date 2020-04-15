@@ -1,5 +1,5 @@
-export default async (title) => {
-  const url = `/api/cloudinary/public-signature?title=${title}`;
+export default async () => {
+  const url = `/api/cloudinary/public-signature`;
 
   const response = await fetch(url, {
     method: 'GET',
