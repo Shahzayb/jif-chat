@@ -1,32 +1,16 @@
 const { getSignature } = require('../util/cloudinary');
+const cloudinary = require('../lib/cloudinary');
 const Post = require('../model/post');
 const User = require('../model/user');
+const Ticket = require('../model/ticket');
 
 exports.getSignature = (req, res) => {
-  const { title } = req.query;
-  if (!title) {
-    return res.status(422).send({ msg: 'title is required' });
-  } else if (title.trim().length > 120) {
-    return res
-      .status(422)
-      .send({ msg: 'title should have characters between 1 and 120' });
-  }
-  const context = `title=${title}`;
-  const signature = getSignature(req.user._id.toString(), context);
+  const signature = getSignature(req.user._id.toString());
   res.json(signature);
 };
 
 exports.getPublicSignature = (req, res) => {
-  const { title } = req.query;
-  if (!title) {
-    return res.status(422).send({ msg: 'title is required' });
-  } else if (title.trim().length > 120) {
-    return res
-      .status(422)
-      .send({ msg: 'title should have characters between 1 and 120' });
-  }
-  const context = `title=${title}`;
-  const signature = getSignature(process.env.ANONYMOUS_USER_ID, context);
+  const signature = getSignature(process.env.ANONYMOUS_USER_ID);
   res.json(signature);
 };
 
@@ -35,6 +19,13 @@ exports.postWebhook = async (req, res) => {
     const { body } = req;
 
     if (body.notification_type === 'upload') {
+      const ticket = Ticket.findOne({ publicId: body.public_id });
+
+      if (!ticket) {
+        await cloudinary.uploader.destroy(body.public_id);
+        return res.status(422).send({ msg: 'This asset is not expected here' });
+      }
+
       const userId = body.public_id.split('/')[1];
 
       const user = await User.exists({ _id: userId });
@@ -47,17 +38,20 @@ exports.postWebhook = async (req, res) => {
         gifSrc: body.secure_url,
         gifPublicId: body.public_id,
         userId,
-        title: body.context.custom.title,
+        title: ticket.title,
       });
 
       await post.save();
+      await ticket.remove();
+
+      return res.end();
     }
     // else if (body.notification_type === 'moderation') {
     //   if (body.moderation_status === 'approved') {
     //   } else {
     //   }
     // }
-    res.send();
+    res.status(422).send({ msg: 'not expecting this event' });
   } catch (err) {
     console.log(err);
     res.status(500).send();

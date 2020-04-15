@@ -9,6 +9,7 @@ import css from './Post.module.css';
 import uploadGif from '../../api/uploadGif';
 import getSignature from '../../api/getSignature';
 import getPublicSignature from '../../api/getPublicSignature';
+import postTicket from '../../api/postTicket';
 import useAuthState from '../../hooks/useAuthState';
 
 function Post(props) {
@@ -23,11 +24,12 @@ function Post(props) {
       setUploading(true);
       let sig;
       if (isAuthenticated) {
-        sig = await getSignature(title);
+        sig = await getSignature();
       } else {
-        sig = await getPublicSignature(title);
+        sig = await getPublicSignature();
       }
 
+      await postTicket(sig.public_id, title);
       await uploadGif(gif, sig);
 
       setTitle('');

@@ -10,4 +10,6 @@ router.delete('/:id', auth, controller.deletePost);
 
 router.get('/events', controller.getEvents);
 
+router.post('/ticket', controller.postTicket);
+
 module.exports = router;

@@ -1,5 +1,6 @@
 const Post = require('../model/post');
 const User = require('../model/user');
+const Ticket = require('../model/ticket');
 const ObjectId = require('mongoose').Types.ObjectId;
 const cloudinary = require('../lib/cloudinary');
 
@@ -127,4 +128,29 @@ exports.getEvents = (req, res) => {
   req.on('close', () => {
     changeStream.close();
   });
+};
+
+exports.postTicket = async (req, res) => {
+  try {
+    const { publicId, title } = req.body;
+    if (!title) {
+      return res.status(422).send({ msg: 'title is required' });
+    } else if (title.trim().length > 120) {
+      return res
+        .status(422)
+        .send({ msg: 'title should have characters between 1 and 120' });
+    } else if (!publicId || !publicId.trim()) {
+      return res.status(422).send({ msg: 'publicId is required' });
+    }
+
+    await Ticket.create({
+      publicId,
+      title,
+    });
+
+    res.end();
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+  }
 };
