@@ -19,7 +19,7 @@ exports.postWebhook = async (req, res) => {
     const { body } = req;
 
     if (body.notification_type === 'upload') {
-      const ticket = Ticket.findOne({ publicId: body.public_id });
+      const ticket = await Ticket.findOne({ publicId: body.public_id });
 
       console.log('ticket', ticket);
 
