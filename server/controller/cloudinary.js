@@ -19,7 +19,7 @@ exports.postWebhook = async (req, res) => {
     const { body } = req;
 
     if (body.notification_type === 'upload') {
-      const ticket = await Ticket.findOne({ publicId: body.public_id });
+      const ticket = await Ticket.findOne({ publicId: body.public_id }).lean();
 
       console.log('ticket', ticket);
 
@@ -44,7 +44,7 @@ exports.postWebhook = async (req, res) => {
       });
 
       await post.save();
-      await ticket.remove();
+      await Ticket.deleteOne({ publicId: body.public_id });
 
       return res.end();
     }
