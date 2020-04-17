@@ -9,7 +9,7 @@ its a social networking website that allows you to send and receive post ( gif +
 ## features
 - User can post gif (gif duration is 2 seconds) with text (max length 120 characters)
 - User can make jif with or without getting logged in. If they make jif after getting login, then they can delete their own jifs.
-- User can will recieve jifs from other user in real-time and this feature is implemented using `server sent events`
+- User will recieve jifs from other user in real-time and this feature is implemented using `server sent events`
 
 ## 3rd party services
 
