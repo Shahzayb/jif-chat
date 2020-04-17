@@ -1,13 +1,13 @@
-export default async title => {
+export default async () => {
   const jwtToken = localStorage.getItem('token') || '';
-  const url = `/api/cloudinary/signature?title=${title}`;
+  const url = `/api/cloudinary/signature`;
 
   const response = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${jwtToken}`
-    }
+      Authorization: `Bearer ${jwtToken}`,
+    },
   });
   if (response.ok) {
     return response.json();
